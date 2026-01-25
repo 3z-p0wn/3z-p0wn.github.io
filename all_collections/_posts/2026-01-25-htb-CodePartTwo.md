@@ -2,11 +2,7 @@
 layout: post
 title: HTB CodePartTwo Writeup
 date: 2026-01-25 
-<<<<<<< HEAD
 categories: [HTB]
-=======
-categories: [htb]
->>>>>>> ca4fcbf7f830bd6b806ff60f75db8cc0209806d0
 ---
 
 ![info.png](/assets/images/2026-01-25-htb-CodePartTwo/info.png)
@@ -31,10 +27,7 @@ En la página principal me permite crear una cuenta o descargar el código fuent
 Después de iniciar sesión en la web, aparece una página en la que puedo escribir y ejecutar código **JavaScript**.
 
 **Dashboard**:
-<<<<<<< HEAD
 
-=======
->>>>>>> ca4fcbf7f830bd6b806ff60f75db8cc0209806d0
 ![dashboard.png](/assets/images/2026-01-25-htb-CodePartTwo/dashboard.png)
 
 En este punto, decido inspeccionar el código de la aplicación para comprobar si utiliza alguna función de evaluación de código insegura:
@@ -43,10 +36,6 @@ La funcionalidad de la página se encuentra en el fichero **app.py**:
 ![apppy.png](/assets/images/2026-01-25-htb-CodePartTwo/apppy.png)
 
 Al parecer, la librería **js2py** tiene una vulnerabilidad en la función **eval_js**: [CVE-2024-28397](https://github.com/Marven11/CVE-2024-28397-js2py-Sandbox-Escape).
-<<<<<<< HEAD
-=======
-[[Entorno Debugging Python]].
->>>>>>> ca4fcbf7f830bd6b806ff60f75db8cc0209806d0
 
 # 2. Acceso inicial
 
@@ -81,17 +70,15 @@ Con `sudo -l` veo que puedo ejecutar **npbackup-cli** como root:
 
 **npbackup** es utilizado para crear una copia de seguridad de **/home/app/app** en el directorio **backups**:
 ![backup.png](/assets/images/2026-01-25-htb-CodePartTwo/backup.png)
-<<<<<<< HEAD
 
 En el archivo **npbackup.conf**hay un parámetro que permite ejecutar comandos antes y después de que se lleve a cabo la copia de seguridad.
 
 ![backupconf.png](/assets/images/2026-01-25-htb-CodePartTwo/backupconf.png)
 
-=======
 En el archivo **npbackup.conf**hay un parámetro que permite ejecutar comandos antes y después de que se lleve a cabo la copia de seguridad.
 
 ![backupconf.png](/assets/images/2026-01-25-htb-CodePartTwo/backupconf.png)
->>>>>>> ca4fcbf7f830bd6b806ff60f75db8cc0209806d0
+
 Como puedo ejecutar **npbackup-cli** como **root**, puedo crear una copia de seguridad utilizando un archivo de configuración malicioso que cree una copia SUID de **/bin/bash** y así ganar acceso root.
 
 Creo una copia de **npbackup.conf**:
@@ -102,22 +89,15 @@ cp npbackup.conf hacked.conf
 
 Modifico el archivo **hacked.conf** de la siguiente manera:
 ![hacked.png](/assets/images/2026-01-25-htb-CodePartTwo/hacked.png)
-<<<<<<< HEAD
 
-=======
->>>>>>> ca4fcbf7f830bd6b806ff60f75db8cc0209806d0
 Creo el backup:
 
 ```bash
 sudo npbackup-cli -c hacked.conf -b -f
 ```
 
-<<<<<<< HEAD
 Ahora puedo ejecutar comandos como root:
 
-=======
-Ahora puedo ejecutar comandos como root.
->>>>>>> ca4fcbf7f830bd6b806ff60f75db8cc0209806d0
 ![root.png](/assets/images/2026-01-25-htb-CodePartTwo/root.png)
 
 
