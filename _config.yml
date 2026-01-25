@@ -2,9 +2,10 @@ title: 3z-p0wn Blog
 markdown: kramdown
 
 # for atom feed
-author:
-  name: Sharad Raj Singh Maurya
-  email: dev_sharad@outlook.com
+
+#author:
+#  name: Sharad Raj Singh Maurya
+#  email: dev_sharad@outlook.com
 
 plugins:
   - jemoji
